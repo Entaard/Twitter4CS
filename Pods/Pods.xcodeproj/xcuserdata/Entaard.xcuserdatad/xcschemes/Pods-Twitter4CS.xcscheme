@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B7F659C1DBF03800007E359"
-               BuildableName = "Twitter4CS.app"
-               BlueprintName = "Twitter4CS"
-               ReferencedContainer = "container:Twitter4CS.xcodeproj">
+               BlueprintIdentifier = "84802474729F169469C5AE5F8A8E92D1"
+               BuildableName = "Pods_Twitter4CS.framework"
+               BlueprintName = "Pods-Twitter4CS"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B7F659C1DBF03800007E359"
-            BuildableName = "Twitter4CS.app"
-            BlueprintName = "Twitter4CS"
-            ReferencedContainer = "container:Twitter4CS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,23 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B7F659C1DBF03800007E359"
-            BuildableName = "Twitter4CS.app"
-            BlueprintName = "Twitter4CS"
-            ReferencedContainer = "container:Twitter4CS.xcodeproj">
+            BlueprintIdentifier = "84802474729F169469C5AE5F8A8E92D1"
+            BuildableName = "Pods_Twitter4CS.framework"
+            BlueprintName = "Pods-Twitter4CS"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -77,16 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B7F659C1DBF03800007E359"
-            BuildableName = "Twitter4CS.app"
-            BlueprintName = "Twitter4CS"
-            ReferencedContainer = "container:Twitter4CS.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
