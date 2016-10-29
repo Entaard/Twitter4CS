@@ -402,6 +402,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="onReply:" destination="gje-Tf-uD4" eventType="touchUpInside" id="wAZ-bf-UXH"/>
+                                                        <segue destination="axd-GV-Sfi" kind="presentation" identifier="DetailReplyTweetSegue" id="vxQ-Ly-j7k"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-lv-9tx">
@@ -616,6 +617,6 @@
         <image name="star" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tnQ-UB-4Cs"/>
+        <segue reference="vxQ-Ly-j7k"/>
     </inferredMetricsTieBreakers>
 </document>

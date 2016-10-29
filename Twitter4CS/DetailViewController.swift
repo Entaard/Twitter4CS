@@ -24,8 +24,11 @@ class DetailViewController: UIViewController {
     
     var tweet: Tweet?
     var newRetweet: Tweet?
+    var newReplyTweet: Tweet?
     var delegate: DetailViewControllerDelegate?
     var selectingIndexPath: IndexPath!
+    var replyToScreenname: String?
+    var replyToTweetId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,14 @@ class DetailViewController: UIViewController {
     @IBAction func onBack(_ sender: UIBarButtonItem) {
         delegate?.detailViewController(detailViewController: self, onBackTo: selectingIndexPath)
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let newTweetViewController = navigationController.topViewController as! NewTweetViewController
+        newTweetViewController.replyToScreenname = replyToScreenname
+        newTweetViewController.replyToTweetId = replyToTweetId
+        newTweetViewController.delegate = self
     }
 
 }
@@ -127,7 +138,8 @@ extension DetailViewController: TweetCellDelegate {
     }
     
     func tweetCell(tweetCell: TweetCell, onReplyTo screenname: String, withTweetId tweetId: Int) {
-        
+        replyToTweetId = tweetId
+        replyToScreenname = screenname
     }
     
     func tweetCell(tweetCell: TweetCell, onRetweetTo tweet: Tweet) {
@@ -138,6 +150,19 @@ extension DetailViewController: TweetCellDelegate {
             
         }, failure: { (error: Error) in
             print("Retweet error: \(error.localizedDescription)")
+        })
+    }
+    
+}
+
+extension DetailViewController: NewTweetViewControllerDelegate {
+    
+    func newTweetViewController(newTweetViewController: NewTweetViewController, newTweetText text: String, tweetId: Int?) {
+        twitterClient?.updateStatus(text: text, replyTo: tweetId, success: { (tweet) in
+            self.newReplyTweet = tweet
+
+        }, failure: { (error: Error) in
+            print("New Tweet error: \(error.localizedDescription)")
         })
     }
     
