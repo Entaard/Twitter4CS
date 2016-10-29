@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var tweet: Tweet?
+    var newRetweet: Tweet?
     var delegate: DetailViewControllerDelegate?
     var selectingIndexPath: IndexPath!
     
@@ -130,7 +131,14 @@ extension DetailViewController: TweetCellDelegate {
     }
     
     func tweetCell(tweetCell: TweetCell, onRetweetTo tweet: Tweet) {
-        
+        twitterClient?.retweet(tweetId: tweet.id, success: { (newRetweet: Tweet) in
+            self.newRetweet = newRetweet
+            tweet.retweetCount += 1
+            self.tableView.reloadData()
+            
+        }, failure: { (error: Error) in
+            print("Retweet error: \(error.localizedDescription)")
+        })
     }
     
 }

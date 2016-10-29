@@ -210,7 +210,12 @@ extension TweetViewController: NewTweetViewControllerDelegate {
 extension TweetViewController: DetailViewControllerDelegate {
     
     func detailViewController(detailViewController: DetailViewController, onBackTo indexPath: IndexPath) {
-        tweetsTable.reloadRows(at: [indexPath], with: .none)
+        if let newRetweet = detailViewController.newRetweet {
+            appendToTop(newTweet: newRetweet)
+            tweetsTable.reloadData()
+        } else {
+            tweetsTable.reloadRows(at: [indexPath], with: .none)
+        }
     }
     
 }
