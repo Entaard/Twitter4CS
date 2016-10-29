@@ -21,6 +21,7 @@ private let verifyCredentialPath = "1.1/account/verify_credentials.json"
 private let favouriteCreatePath = "1.1/favorites/create.json"
 private let favouriteDestroyPath = "1.1/favorites/destroy.json"
 private let updateStatusPath = "1.1/statuses/update.json?status="
+private let retweetPath = "1.1/statuses/retweet/:id.json"
 
 class TwitterClient: BDBOAuth1SessionManager {
     
@@ -126,7 +127,19 @@ class TwitterClient: BDBOAuth1SessionManager {
             let tweet = Tweet(fromTweetDictionary: tweetDictionary)
             success(tweet)
         }, failure: { (task, error: Error) in
-            print("error: \(error.localizedDescription)")
+//            print("error: \(error.localizedDescription)")
+            failure(error)
+        })
+    }
+    
+    func retweet(tweetId id: Int!, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let retweetCallPath = retweetPath.replacingOccurrences(of: ":id", with: "\(id!)")
+        post(retweetCallPath, parameters: nil, success: { (task, response) in
+            let tweetDictionary = response as! NSDictionary
+            let tweet = Tweet(fromTweetDictionary: tweetDictionary)
+            success(tweet)
+        }, failure: { (task, error) in
+            failure(error)
         })
     }
     

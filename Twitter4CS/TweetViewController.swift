@@ -72,6 +72,12 @@ class TweetViewController: UIViewController {
         }
     }
     
+    func appendToTop(newTweet: Tweet) {
+        var newTweets = [newTweet]
+        newTweets.append(contentsOf: tweets)
+        tweets = newTweets
+    }
+    
 }
 
 extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
@@ -171,15 +177,24 @@ extension TweetViewController: TweetCellDelegate {
         replyToTweetId = tweetId
     }
     
+    func tweetCell(tweetCell: TweetCell, onRetweetTo tweet: Tweet) {
+        twitterClient?.retweet(tweetId: tweet.id, success: { (newRetweet: Tweet) in
+            self.appendToTop(newTweet: newRetweet)
+            tweet.retweetCount += 1
+            self.tweetsTable.reloadData()
+            
+        }, failure: { (error: Error) in
+            print("Retweet error: \(error.localizedDescription)")
+        })
+    }
+    
 }
 
 extension TweetViewController: NewTweetViewControllerDelegate {
     
     func newTweetViewController(newTweetViewController: NewTweetViewController, newTweetText text: String, tweetId: Int?) {
         twitterClient?.updateStatus(text: text, replyTo: tweetId, success: { (tweet) in
-            var newTweets = [tweet]
-            newTweets.append(contentsOf: self.tweets)
-            self.tweets = newTweets
+            self.appendToTop(newTweet: tweet)
             
             self.tweetsTable.reloadData()
         }, failure: { (error: Error) in

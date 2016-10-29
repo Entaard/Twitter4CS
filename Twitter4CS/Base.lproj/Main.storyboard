@@ -127,6 +127,9 @@
                                                     <state key="normal" title="Button" image="retweet">
                                                         <color key="titleColor" red="0.47448048860000003" green="0.47448048860000003" blue="0.47448048860000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onRetweet:" destination="NQz-3V-eA4" eventType="touchUpInside" id="FQ6-xv-7jk"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsS-Cn-RPA">
                                                     <rect key="frame" x="145" y="54" width="15" height="15"/>

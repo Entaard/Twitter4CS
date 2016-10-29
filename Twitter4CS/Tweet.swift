@@ -13,10 +13,10 @@ enum TweetProps: String {
     case screenname = "user.screen_name"
     case userImg = "user.profile_image_url_https"
     case mediaImg = "entities.media.media_url_https"
-    case ownerFullname = "quoted_status.user.name"
-    case ownerScreenname = "quoted_status.user.screen_name"
-    case ownerText = "quoted_status.text"
-    case ownerImg = "quoted_status.user.profile_image_url_https"
+    case ownerFullname = "retweeted_status.user.name"
+    case ownerScreenname = "retweeted_status.user.screen_name"
+    case ownerText = "retweeted_status.text"
+    case ownerImg = "retweeted_status.user.profile_image_url_https"
     case screennameReplyTo = "in_reply_to_screen_name"
     case text, retweet_count, favorite_count, retweeted, created_at, id, favorited
 }

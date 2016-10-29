@@ -13,6 +13,7 @@ import AFNetworking
     
     @objc optional func tweetCell(tweetCell: TweetCell, onFavour favourBtn: UIButton)
     @objc optional func tweetCell(tweetCell: TweetCell, onReplyTo screenname: String, withTweetId tweetId: Int)
+    @objc optional func tweetCell(tweetCell: TweetCell, onRetweetTo tweet: Tweet)
     
 }
 
@@ -60,6 +61,10 @@ class TweetCell: UITableViewCell {
     
     @IBAction func onReply(_ sender: UIButton) {
         delegate?.tweetCell!(tweetCell: self, onReplyTo: tweet.screenname, withTweetId: tweet.id)
+    }
+    
+    @IBAction func onRetweet(_ sender: UIButton) {
+        delegate?.tweetCell!(tweetCell: self, onRetweetTo: tweet)
     }
     
     class func setState(ofFavourButton favourBtn: UIButton, withFavouriteValue isFavourite: Bool) {
