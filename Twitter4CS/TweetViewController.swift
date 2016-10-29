@@ -69,6 +69,8 @@ class TweetViewController: UIViewController {
             let indexPath = tweetsTable.indexPathForSelectedRow
             let index = indexPath?.section
             detailViewController.tweet = tweets[index!]
+            detailViewController.selectingIndexPath = indexPath
+            detailViewController.delegate = self
         }
     }
     
@@ -97,6 +99,7 @@ extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
         
         let isFavourite = cell.tweet.isFavourite
         TweetCell.setState(ofFavourButton: cell.favourBtn, withFavouriteValue: isFavourite)
+        
         cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         return cell
@@ -200,6 +203,14 @@ extension TweetViewController: NewTweetViewControllerDelegate {
         }, failure: { (error: Error) in
             print("New Tweet error: \(error.localizedDescription)")
         })
+    }
+    
+}
+
+extension TweetViewController: DetailViewControllerDelegate {
+    
+    func detailViewController(detailViewController: DetailViewController, onBackTo indexPath: IndexPath) {
+        tweetsTable.reloadRows(at: [indexPath], with: .none)
     }
     
 }
