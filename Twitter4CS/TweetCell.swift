@@ -26,6 +26,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetTimeLabel: UILabel!
     @IBOutlet weak var favourBtn: UIButton!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var retweetCountLabel: UILabel!
     
     var delegate: TweetCellDelegate?
     

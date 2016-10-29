@@ -18,7 +18,7 @@ enum TweetProps: String {
     case ownerText = "quoted_status.text"
     case ownerImg = "quoted_status.user.profile_image_url_https"
     case screennameReplyTo = "in_reply_to_screen_name"
-    case text, retweet_count, favourites_count, retweeted, created_at, id, favorited
+    case text, retweet_count, favorite_count, retweeted, created_at, id, favorited
 }
 
 class Tweet: NSObject {
@@ -59,7 +59,7 @@ class Tweet: NSObject {
         screennameReplyTo = tweet.value(forKeyPath: TweetProps.screennameReplyTo.rawValue) as? String
         text = (tweet[TweetProps.text.rawValue] as? String) ?? ""
         retweetCount = (tweet[TweetProps.retweet_count.rawValue] as? Int) ?? 0
-        favoritesCount = (tweet[TweetProps.favourites_count.rawValue] as? Int) ?? 0
+        favoritesCount = (tweet[TweetProps.favorite_count.rawValue] as? Int) ?? 0
         retweeted = (tweet[TweetProps.retweeted.rawValue] as? Bool) ?? false
         
         let timestampStr = tweet[TweetProps.created_at.rawValue] as? String

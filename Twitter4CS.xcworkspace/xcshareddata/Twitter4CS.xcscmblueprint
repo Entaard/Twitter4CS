@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "66B0B3C1B5BDB16ECA82FE7C3531B92CD2AE2C58",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "88C5D1AB1006A69E09841E46D3095A6E207E3C57" : 9223372036854775807,
+    "66B0B3C1B5BDB16ECA82FE7C3531B92CD2AE2C58" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "126F0E3C-B8D4-4731-9504-69CD3EE70F29",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "88C5D1AB1006A69E09841E46D3095A6E207E3C57" : "..\/..",
+    "66B0B3C1B5BDB16ECA82FE7C3531B92CD2AE2C58" : "Twitter4CS\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Twitter4CS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Twitter4CS.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Entaard\/Twitter4CS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "66B0B3C1B5BDB16ECA82FE7C3531B92CD2AE2C58"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:nongdenchet\/ios_swift_sample.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88C5D1AB1006A69E09841E46D3095A6E207E3C57"
+    }
+  ]
+}

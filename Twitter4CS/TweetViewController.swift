@@ -16,6 +16,7 @@ class TweetViewController: UIViewController {
     let twitterClient = TwitterClient.shared
     let newTweetSegueIdentifier = "NewTweetSegue"
     let replyTweetSegueIdentifier = "ReplyTweetSegue"
+    let detailSegueIdentifier = "DetailSegue"
 
     @IBOutlet weak var tweetsTable: UITableView!
     
@@ -63,6 +64,11 @@ class TweetViewController: UIViewController {
                 newTweetViewController.replyToTweetId = replyToTweetId
                 newTweetViewController.replyToScreenname = replyToScreenname
             }
+        } else if identifier == detailSegueIdentifier {
+            let detailViewController = navigationController.topViewController as! DetailViewController
+            let indexPath = tweetsTable.indexPathForSelectedRow
+            let index = indexPath?.section
+            detailViewController.tweet = tweets[index!]
         }
     }
     
@@ -145,6 +151,14 @@ extension TweetViewController: TweetCellDelegate {
         
         twitterClient?.setFavour(tweetId: tweetId, isFavourite: willBeFavourite, success: {
             tweet.isFavourite = willBeFavourite
+            
+            let favouritesCount = tweet.favoritesCount
+            if willBeFavourite {
+                tweet.favoritesCount = favouritesCount + 1
+            } else if favouritesCount > 0 {
+                tweet.favoritesCount = favouritesCount - 1
+            }
+            
             let indexPath = self.tweetsTable.indexPath(for: tweetCell)
             self.tweetsTable.reloadSections(IndexSet(integer: (indexPath?.section)!), with: .none)
         }, failure: { (error: Error) in
