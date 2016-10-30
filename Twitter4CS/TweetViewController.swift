@@ -8,17 +8,20 @@
 
 import UIKit
 
+let twitterBlue = UIColor(red: 0, green: 172/255, blue: 237/255, alpha: 1)
+
 class TweetViewController: UIViewController {
     
     let headerHeight: CGFloat = 15
     let headerPaddingTop: CGFloat = 3
-    let twitterBlue = UIColor(red: 0, green: 172/255, blue: 237/255, alpha: 1)
     let twitterClient = TwitterClient.shared
+    let refreshControl = UIRefreshControl()
     let newTweetSegueIdentifier = "NewTweetSegue"
     let replyTweetSegueIdentifier = "ReplyTweetSegue"
     let detailSegueIdentifier = "DetailSegue"
 
     @IBOutlet weak var tweetsTable: UITableView!
+    @IBOutlet weak var scrollTopBtn: UIButton!
     
     var tweets = [Tweet]()
     var replyToTweetId: Int?
@@ -27,29 +30,18 @@ class TweetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tweetsTable.dataSource = self
-        tweetsTable.delegate = self
-        
-        tweetsTable.rowHeight = UITableViewAutomaticDimension
-        tweetsTable.estimatedRowHeight = 90
-        tweetsTable.separatorColor = twitterBlue
-
-        
-        twitterClient?.homeTimeline(success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            for tweet in tweets {
-                print(tweet.text)
-            }
-            
-            self.tweetsTable.reloadData()
-            }, failure: { (error: Error) in
-                print("Error: \(error.localizedDescription)")
-                self.twitterClient?.logout()
-        })
+        initViews()
+        getHomeTimeline()
     }
 
     @IBAction func onLogout(_ sender: UIBarButtonItem) {
         twitterClient?.logout()
+    }
+    
+    @IBAction func onScrollTop(_ sender: UIButton) {
+        let indexPathOfFirstRow = IndexPath(row: 0, section: 0)
+        tweetsTable.scrollToRow(at: indexPathOfFirstRow, at: .top, animated: true)
+        sender.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,6 +72,49 @@ class TweetViewController: UIViewController {
         tweets = newTweets
     }
     
+    @objc func getHomeTimeline(sinceId: NSInteger = sinceBeginingId) {
+        twitterClient?.homeTimeline(sinceId: sinceId, success: { (tweets: [Tweet]) in
+            if sinceId == sinceBeginingId {
+                self.tweets = tweets
+            } else {
+                self.tweets.append(contentsOf: tweets)
+            }
+            
+            for tweet in tweets {
+                print(tweet.text)
+            }
+            
+            self.tweetsTable.reloadData()
+            self.refreshControl.endRefreshing()
+        }, failure: { (error: Error) in
+            print("Error: \(error.localizedDescription)")
+            self.twitterClient?.logout()
+        })
+    }
+    
+    func initViews() {
+        scrollTopBtn.isHidden = true
+        
+        refreshControl.addTarget(self, action: #selector(TweetViewController.getHomeTimeline(sinceId:)), for: UIControlEvents.valueChanged)
+        tweetsTable.addSubview(refreshControl)
+        
+        tweetsTable.dataSource = self
+        tweetsTable.delegate = self
+        
+        tweetsTable.rowHeight = UITableViewAutomaticDimension
+        tweetsTable.estimatedRowHeight = 90
+        tweetsTable.separatorColor = twitterBlue
+        TweetViewController.initNavigationBar(of: navigationController!, and: navigationItem, withTitle: "Home")
+    }
+    
+    static func initNavigationBar(of navigationController: UINavigationController, and navigationItem: UINavigationItem, withTitle title: String?) {
+        let navigationBar = navigationController.navigationBar
+        navigationBar.barTintColor = twitterBlue
+        navigationBar.tintColor = UIColor.white
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationItem.title = title
+    }
+    
 }
 
 extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
@@ -103,6 +138,16 @@ extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
         cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastCellIndex = tweets.count - 1
+        if indexPath.section == lastCellIndex {
+            scrollTopBtn.isHidden = false
+            let sinceId = tweets[lastCellIndex].id
+            getHomeTimeline(sinceId: sinceId!)
+            tweetsTable.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

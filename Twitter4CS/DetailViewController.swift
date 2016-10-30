@@ -33,12 +33,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 170
-        
-        tableView.reloadData()
+        initViews()
     }
 
     @IBAction func onBack(_ sender: UIBarButtonItem) {
@@ -52,6 +47,16 @@ class DetailViewController: UIViewController {
         newTweetViewController.replyToScreenname = replyToScreenname
         newTweetViewController.replyToTweetId = replyToTweetId
         newTweetViewController.delegate = self
+    }
+    
+    func initViews() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 170
+        tableView.reloadData()
+        
+        TweetViewController.initNavigationBar(of: navigationController!, and: navigationItem, withTitle: nil)
     }
 
 }

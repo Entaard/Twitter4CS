@@ -65,6 +65,8 @@ class NewTweetViewController: UIViewController {
         }
         fullnameLabel.text = user?.name
         screennameLabel.text = user?.screenname
+        
+        TweetViewController.initNavigationBar(of: navigationController!, and: navigationItem, withTitle: "Tweet")
     }
     
 }

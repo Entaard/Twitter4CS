@@ -9,6 +9,8 @@
 import Foundation
 import BDBOAuth1Manager
 
+let sinceBeginingId: NSInteger = -1
+
 private let appURL = "twitter4CS://oath"
 private let consumerKey = "BtrADY1y8syoRKMPXjew6ZGAm"
 private let consumerSecret = "nm998DnUoubS3yZQAxgEMTMaLdqNXhmatCQGaV1ZqQJETdvw2G"
@@ -28,8 +30,14 @@ class TwitterClient: BDBOAuth1SessionManager {
     static let userDidLogoutNotification = "UserDidLogout"
     static let shared = TwitterClient(baseURL: URL(string: baseTwitterURL), consumerKey: consumerKey, consumerSecret: consumerSecret)
     
-    func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        get(homeTimelinePath, parameters: nil, success: { (task, response) in
+    func homeTimeline(sinceId: Int, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        let parameters: [String: Int]?
+        if sinceId == sinceBeginingId {
+            parameters = nil
+        } else {
+            parameters = ["since_id": sinceId]
+        }
+        get(homeTimelinePath, parameters: parameters, success: { (task, response) in
             let tweetDictionaries = response as! [NSDictionary]
             for dictionary in tweetDictionaries {
                 print("dictionary: \(dictionary)")
