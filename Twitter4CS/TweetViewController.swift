@@ -141,8 +141,17 @@ extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let haveScrollTopCellIndex = 19
         let lastCellIndex = tweets.count - 1
-        if indexPath.section == lastCellIndex {
+        let currentIndex = indexPath.section
+        
+        if currentIndex >= haveScrollTopCellIndex {
+            scrollTopBtn.isHidden = false
+        } else {
+            scrollTopBtn.isHidden = true
+        }
+        
+        if indexPath.section >= lastCellIndex {
             scrollTopBtn.isHidden = false
             let sinceId = tweets[lastCellIndex].id
             getHomeTimeline(sinceId: sinceId!)
