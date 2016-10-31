@@ -12,8 +12,10 @@ import BDBOAuth1Manager
 let sinceBeginingId: NSInteger = -1
 
 private let appURL = "twitter4CS://oath"
-private let consumerKey = "BtrADY1y8syoRKMPXjew6ZGAm"
-private let consumerSecret = "nm998DnUoubS3yZQAxgEMTMaLdqNXhmatCQGaV1ZqQJETdvw2G"
+//private let consumerKey = "BtrADY1y8syoRKMPXjew6ZGAm"
+//private let consumerSecret = "nm998DnUoubS3yZQAxgEMTMaLdqNXhmatCQGaV1ZqQJETdvw2G"
+private let consumerKey = "QyaTTCOHYGDyEboz6ydTTbT8E"
+private let consumerSecret = "XVGb7j9xtrtR2oxR8mHFFhh685XzNwmO00gLzCfSq2LOSg4XmN"
 private let baseTwitterURL = "https://api.twitter.com"
 private let requestTokenPath = "oauth/request_token"
 private let authorizePath = "oauth/authorize?oauth_token="

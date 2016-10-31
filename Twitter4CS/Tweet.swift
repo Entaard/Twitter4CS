@@ -30,8 +30,8 @@ class Tweet: NSObject {
     var ownerScreenname: String?
     var ownerText: String?
     var screennameReplyTo: String?
-    var retweetCount: Int = 0
-    var favoritesCount: Int = 0
+    var retweetCount = 0
+    var favoritesCount = 0
     var retweeted: Bool
     var createDate: String?
     var userImgURL: URL?
@@ -94,21 +94,20 @@ class Tweet: NSObject {
         
         let formatterGet = DateFormatter()
         formatterGet.dateFormat = "EEE MMM d HH:mm:ss Z y"
-        let timestamp = formatterGet.date(from: timestampStr!)
         
-        guard timestamp != nil else {
+        guard let timestamp = formatterGet.date(from: timestampStr!) else {
             return ""
         }
         
         let secondsOfAMin: Double = 60
         let secondsOfAnHour: Double = 60 * 60
         let secondsOfADay: Double = 24 * secondsOfAnHour
-        let timeInterval = -timestamp!.timeIntervalSinceNow
+        let timeInterval = -timestamp.timeIntervalSinceNow
         let formatterDisplay = DateFormatter()
         
         if timeInterval > secondsOfADay {
             formatterDisplay.dateFormat = "MM/dd/yyyy"
-            return formatterDisplay.string(from: timestamp!)
+            return formatterDisplay.string(from: timestamp)
         } else if timeInterval > secondsOfAnHour {
             formatterDisplay.dateFormat = "HH"
             return "\(Int(timeInterval/60/60))h ago"

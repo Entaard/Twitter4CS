@@ -16,13 +16,13 @@ protocol NewTweetViewControllerDelegate {
 }
 
 class NewTweetViewController: UIViewController {
-
+    
     @IBOutlet weak var profileImgView: UIImageView!
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var characterCounter: UILabel!
-
+    
     var delegate: NewTweetViewControllerDelegate?
     
     fileprivate let maxCharacterCount = 140
@@ -36,11 +36,11 @@ class NewTweetViewController: UIViewController {
         
         initViews()
     }
-
+    
     @IBAction func onBack(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func onTweet(_ sender: UIBarButtonItem) {
         textView.resignFirstResponder()
         delegate?.newTweetViewController(newTweetViewController: self, newTweetText: textView.text, tweetId: replyToTweetId)
@@ -52,7 +52,6 @@ class NewTweetViewController: UIViewController {
         if replyToScreenname != nil {
             textView.text = "@\(replyToScreenname!) "
             characterCounter.text = "\(maxCharacterCount - textView.text.characters.count)"
-
         } else {
             textView.text = ""
             characterCounter.text = "\(maxCharacterCount)"

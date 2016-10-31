@@ -16,7 +16,7 @@ import AFNetworking
 }
 
 class DetailViewController: UIViewController {
-
+    
     let imgHeight: CGFloat = 200
     let twitterClient = TwitterClient.shared
     
@@ -32,10 +32,10 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initViews()
     }
-
+    
     @IBAction func onBack(_ sender: UIBarButtonItem) {
         delegate?.detailViewController(detailViewController: self, onBackTo: selectingIndexPath)
         dismiss(animated: true, completion: nil)
@@ -58,7 +58,7 @@ class DetailViewController: UIViewController {
         
         TweetViewController.initNavigationBar(of: navigationController!, and: navigationItem, withTitle: nil)
     }
-
+    
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -165,7 +165,7 @@ extension DetailViewController: NewTweetViewControllerDelegate {
     func newTweetViewController(newTweetViewController: NewTweetViewController, newTweetText text: String, tweetId: Int?) {
         twitterClient?.updateStatus(text: text, replyTo: tweetId, success: { (tweet) in
             self.newReplyTweet = tweet
-
+            
         }, failure: { (error: Error) in
             print("New Tweet error: \(error.localizedDescription)")
         })

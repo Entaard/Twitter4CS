@@ -19,7 +19,7 @@ class TweetViewController: UIViewController {
     let newTweetSegueIdentifier = "NewTweetSegue"
     let replyTweetSegueIdentifier = "ReplyTweetSegue"
     let detailSegueIdentifier = "DetailSegue"
-
+    
     @IBOutlet weak var tweetsTable: UITableView!
     @IBOutlet weak var scrollTopBtn: UIButton!
     
@@ -33,7 +33,7 @@ class TweetViewController: UIViewController {
         initViews()
         getHomeTimeline()
     }
-
+    
     @IBAction func onLogout(_ sender: UIBarButtonItem) {
         twitterClient?.logout()
     }
@@ -66,11 +66,11 @@ class TweetViewController: UIViewController {
         }
     }
     
-    func appendToTop(newTweet: Tweet) {
-        var newTweets = [newTweet]
-        newTweets.append(contentsOf: tweets)
-        tweets = newTweets
-    }
+//    func appendToTop(newTweet: Tweet) {
+//        var newTweets = [newTweet]
+//        newTweets.append(contentsOf: tweets)
+//        tweets = newTweets
+//    }
     
     @objc func getHomeTimeline(sinceId: NSInteger = sinceBeginingId) {
         twitterClient?.homeTimeline(sinceId: sinceId, success: { (tweets: [Tweet]) in
@@ -145,11 +145,7 @@ extension TweetViewController: UITableViewDelegate, UITableViewDataSource {
         let lastCellIndex = tweets.count - 1
         let currentIndex = indexPath.section
         
-        if currentIndex >= haveScrollTopCellIndex {
-            scrollTopBtn.isHidden = false
-        } else {
-            scrollTopBtn.isHidden = true
-        }
+        scrollTopBtn.isHidden = currentIndex < haveScrollTopCellIndex
         
         if indexPath.section >= lastCellIndex {
             scrollTopBtn.isHidden = false
@@ -236,7 +232,7 @@ extension TweetViewController: TweetCellDelegate {
     
     func tweetCell(tweetCell: TweetCell, onRetweetTo tweet: Tweet) {
         twitterClient?.retweet(tweetId: tweet.id, success: { (newRetweet: Tweet) in
-            self.appendToTop(newTweet: newRetweet)
+            self.tweets.insert(newRetweet, at: 0)
             tweet.retweetCount += 1
             self.tweetsTable.reloadData()
             
@@ -251,7 +247,7 @@ extension TweetViewController: NewTweetViewControllerDelegate {
     
     func newTweetViewController(newTweetViewController: NewTweetViewController, newTweetText text: String, tweetId: Int?) {
         twitterClient?.updateStatus(text: text, replyTo: tweetId, success: { (tweet) in
-            self.appendToTop(newTweet: tweet)
+            self.tweets.insert(tweet, at: 0)
             
             self.tweetsTable.reloadData()
         }, failure: { (error: Error) in
@@ -269,10 +265,10 @@ extension TweetViewController: DetailViewControllerDelegate {
         
         guard newRetweet == nil && newReplyTweet == nil else {
             if newRetweet != nil {
-                appendToTop(newTweet: newRetweet!)
+                tweets.insert(newRetweet!, at: 0)
             }
             if newReplyTweet != nil {
-                appendToTop(newTweet: newReplyTweet!)
+                tweets.insert(newReplyTweet!, at: 0)
             }
             tweetsTable.reloadData()
             return

@@ -49,7 +49,7 @@ class User: NSObject, NSCoding {
         
         let profileImgStr = user[UserDictionaryProps.profileImg.rawValue] as? String
         if let profileImgStr = profileImgStr {
-                profileURL = URL(string: profileImgStr)
+            profileURL = URL(string: profileImgStr)
         }
     }
     

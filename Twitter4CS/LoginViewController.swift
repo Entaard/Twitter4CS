@@ -12,18 +12,18 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
     
     static let loginSegueIdentifier = "loginSegue"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    @IBAction func onLogin(_ sender: UIButton) {    
+    
+    @IBAction func onLogin(_ sender: UIButton) {
         TwitterClient.shared?.login(success: {
             print("oh yeah login")
             self.performSegue(withIdentifier: LoginViewController.loginSegueIdentifier, sender: nil)
         }) { (error:Error) in
-                print("Error: \(error.localizedDescription)")
+            print("Error: \(error.localizedDescription)")
         }
     }
-
+    
 }

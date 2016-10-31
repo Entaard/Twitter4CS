@@ -54,7 +54,7 @@ class TweetCell: UITableViewCell {
             tweetTimeLabel.text = "\(tweet.createDate!)"
         }
     }
-
+    
     @IBAction func onFavour(_ sender: UIButton) {
         delegate?.tweetCell!(tweetCell: self, onFavour: sender)
     }
@@ -68,11 +68,6 @@ class TweetCell: UITableViewCell {
     }
     
     class func setState(ofFavourButton favourBtn: UIButton, withFavouriteValue isFavourite: Bool) {
-        if isFavourite {
-            favourBtn.setImage(UIImage(named: "yellow-star"), for: UIControlState.normal)
-            
-        } else {
-            favourBtn.setImage(UIImage(named: "star"), for: UIControlState.normal)
-        }
+        favourBtn.setImage(UIImage(named: isFavourite ? "yellow-star" : "star"), for: UIControlState.normal)
     }
 }
